@@ -1,6 +1,6 @@
 @plugin '@tailwindcss/forms';
 @import "tailwindcss";
-@import "@fontsource-variable/jetbrains-mono/wght.css";
+@import '@fontsource-variable/inter';
 
 @layer base {
 
@@ -11,7 +11,7 @@
 
 	body {
 		@apply bg-light text-dark;
-		font-family: "JetBrains Mono Variable", monospace;
+		font-family: "Inter Variable", monospace;
 	}
 
 	* {
