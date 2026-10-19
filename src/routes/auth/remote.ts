@@ -3,7 +3,7 @@ import * as v from "valibot";
 import { db } from "../../prisma/db";
 import { createSession, deleteSession, deleteSessionCookie, deleteSessionsByUserId, getSession, setSessionCookie } from "#lib/server/sessions.ts";
 import { invalid, redirect } from "@sveltejs/kit";
-import { nonEmptyString, phoneNumberSchema } from "#lib/schemas.ts";
+import { nonEmptyString } from "#lib/schemas.ts";
 
 export const login = form(
 	v.object({
@@ -58,31 +58,7 @@ export const deleteUser = form(
 	async () => {
 		const { locals } = getRequestEvent();
 
-		const ownedItems = await db.orm.public.Item.first({ sellerId: locals.userId })
-		if (ownedItems) throw new Error('Account with active listings cannot be deleted')
-
 		await db.orm.public.User.where({ id: locals.userId }).delete()
-		await deleteSessionsByUserId(locals.userId)
-	}
-)
-
-export const remoteSignout = form(
-	v.object({
-		id: nonEmptyString() // SessionToken, Make proper schema
-	}),
-	async ({ id }) => {
-		const { locals } = getRequestEvent()
-		const sessionToken = id
-
-		const userId = await getSession(sessionToken)
-		if (!userId || userId !== locals.userId) invalid('Session does not exist')
-
-		await deleteSession(sessionToken)
-	})
-
-export const deleteAllSessions = form(
-	async () => {
-		const { locals } = getRequestEvent()
 		await deleteSessionsByUserId(locals.userId)
 	}
 )
