@@ -13,7 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			event.locals.userId = userId;
 		}
 	}
-	if (!event.locals.userId && event.url.pathname.includes('auth')) redirect(303, "/auth/login");
+	if (event.locals.userId && event.url.pathname === '/auth') redirect(303, "/");
 
 	const response = await resolve(event);
 	return response;
