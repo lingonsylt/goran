@@ -17,7 +17,7 @@ model Motion {
   title        String
   description  String
 
-  voteEstimate Int
+  voteEstimate Int               @default(0)
 
   creator      User?             @relation(fields: [creatorId], references: [id], onDelete: SetNull)
   creatorId    String?
