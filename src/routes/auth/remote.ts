@@ -21,14 +21,14 @@ export const auth = form(
 
 			const token = await createSession(user.id);
 			setSessionCookie(token)
-			return redirect(303, "/");
+			redirect(303, "/");
 		} else {
 			const passwordHash = await Bun.password.hash(password)
 			try {
 				const newUser = await db.orm.public.User.create({ name, passwordHash });
 				const token = await createSession(newUser.id);
 				setSessionCookie(token)
-				return redirect(303, "/");
+				redirect(303, "/");
 			} catch (error) {
 				if (error instanceof Error && 'sqlState' in error && error.sqlState === '23505') {
 					invalid('Username is taken');
