@@ -1,14 +1,14 @@
 // use prisma-8
 model User {
-  id                  String            @id @default(uuid(7))
+  id           String            @id @default(uuid(7))
 
-  name                String            @unique
-  passwordHash        String
+  name         String            @unique
+  passwordHash String
 
-  motions             Motion[]
-  votes               Vote[]
+  motions      Motion[]
+  votes        Vote[]
 
-  createdAt           TimestamptzString @default(now())
+  createdAt    TimestamptzString @default(now())
 }
 
 model Motion {
@@ -19,8 +19,8 @@ model Motion {
 
   voteEstimate Int
 
-  creator      User              @relation(fields: [creatorId], references: [id])
-  creatorId    String
+  creator      User?             @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+  creatorId    String?
 
   votes        Vote[]
 
@@ -32,11 +32,14 @@ model Vote {
 
   forMotion Boolean
 
-  motion    Motion            @relation(fields: [motionId], references: [id])
+  motion    Motion            @relation(fields: [motionId], references: [id], onDelete: Cascade)
   motionId  String
 
-  voter     User              @relation(fields: [voterId], references: [id])
+  voter     User              @relation(fields: [voterId], references: [id], onDelete: Cascade)
   voterId   String
 
   createdAt TimestamptzString @default(now())
+
+  @@unique([motionId, voterId])
+  @@index([motionId])
 }

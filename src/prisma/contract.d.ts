@@ -18,7 +18,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'6a25a714448fd85528062eaa6e7016c6b6c6f7dbb2ef6ccd7b90007bbe2aac4d'>;
+  StorageHashBase<'4a1b19ddafe1ad128260d7bf50b5ace7de2ae1b152a203eb30f4d3b301fb90e8'>;
 export type ExecutionHash =
   ExecutionHashBase<'4702bc259da4acef3fe103efb7409c1fb3b35fa964c7fef8820bf2d3bf4499dc'>;
 export type ProfileHash =
@@ -236,7 +236,7 @@ export type FieldOutputTypes = {
   readonly public: {
     readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly creatorId: CodecTypes['pg/text@1']['output'];
+      readonly creatorId: CodecTypes['pg/text@1']['output'] | null;
       readonly description: CodecTypes['pg/text@1']['output'];
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly title: CodecTypes['pg/text@1']['output'];
@@ -261,7 +261,7 @@ export type FieldInputTypes = {
   readonly public: {
     readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
-      readonly creatorId: CodecTypes['pg/text@1']['input'];
+      readonly creatorId: CodecTypes['pg/text@1']['input'] | null;
       readonly description: CodecTypes['pg/text@1']['input'];
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly title: CodecTypes['pg/text@1']['input'];
@@ -286,7 +286,7 @@ export type StorageColumnTypes = {
   readonly public: {
     readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly creatorId: CodecTypes['pg/text@1']['output'];
+      readonly creatorId: CodecTypes['pg/text@1']['output'] | null;
       readonly description: CodecTypes['pg/text@1']['output'];
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly title: CodecTypes['pg/text@1']['output'];
@@ -311,7 +311,7 @@ export type StorageColumnInputTypes = {
   readonly public: {
     readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
-      readonly creatorId: CodecTypes['pg/text@1']['input'];
+      readonly creatorId: CodecTypes['pg/text@1']['input'] | null;
       readonly description: CodecTypes['pg/text@1']['input'];
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly title: CodecTypes['pg/text@1']['input'];
@@ -336,12 +336,12 @@ export type StorageColumnInputTypes = {
 export namespace Models {
   export type public_Motion = {
     createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-    creatorId: CodecTypes['pg/text@1']['output'];
+    creatorId: CodecTypes['pg/text@1']['output'] | null;
     description: CodecTypes['pg/text@1']['output'];
     id: CodecTypes['pg/text@1']['output'];
     title: CodecTypes['pg/text@1']['output'];
     voteEstimate: CodecTypes['pg/int4@1']['output'];
-    creator: public_User;
+    creator: public_User | null;
     votes: public_Vote[];
     readonly [RelationKeys]?: 'creator' | 'votes';
   };
@@ -404,7 +404,7 @@ type ContractBase = Omit<
                 readonly creatorId: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
+                  readonly nullable: true;
                   readonly many: false;
                 };
                 readonly description: {
@@ -525,7 +525,7 @@ type ContractBase = Omit<
                 };
               };
               primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [];
+              uniques: readonly [{ readonly columns: readonly ['motionId', 'voterId'] }];
               indexes: readonly [
                 {
                   readonly name: 'Vote_motionId_idx_ae2b282e';
@@ -596,7 +596,7 @@ type ContractBase = Omit<
                 };
               };
               readonly creatorId: {
-                readonly nullable: false;
+                readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
               readonly description: {
@@ -620,7 +620,7 @@ type ContractBase = Omit<
               readonly creator: {
                 readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
                 readonly cardinality: 'N:1';
-                readonly nullable: false;
+                readonly nullable: true;
                 readonly on: {
                   readonly localFields: readonly ['creatorId'];
                   readonly targetFields: readonly ['id'];

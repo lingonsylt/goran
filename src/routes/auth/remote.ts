@@ -7,11 +7,11 @@ import { nonEmptyString, phoneNumberSchema } from "#lib/schemas.ts";
 
 export const login = form(
 	v.object({
-		phoneNumber: phoneNumberSchema(),
+		name: nonEmptyString(),
 		password: nonEmptyString(),
 	}),
-	async ({ phoneNumber, password }) => {
-		const user = await db.orm.public.User.first({ phoneNumber });
+	async ({ name, password }) => {
+		const user = await db.orm.public.User.first({ name });
 		if (!user) invalid('Invalid credentials');
 
 		const isCorrect = await Bun.password.verify(password, user.passwordHash)
@@ -25,20 +25,23 @@ export const login = form(
 
 export const register = form(
 	v.object({
-		phoneNumber: phoneNumberSchema(),
 		name: nonEmptyString(),
 		password: nonEmptyString(),
 	}),
-	async ({ phoneNumber, name, password }) => {
-		const existingUser = await db.orm.public.User.first({ phoneNumber });
-		if (existingUser) invalid('Username is taken');
+	async ({ name, password }) => {
 
 		const passwordHash = await Bun.password.hash(password)
-		const { id } = await db.orm.public.User.create({ phoneNumber, name, passwordHash });
-
-		const token = await createSession(id);
-		setSessionCookie(token)
-		return redirect(303, "/");
+		try {
+			const newUser = await db.orm.public.User.create({ name, passwordHash });
+			const token = await createSession(newUser.id);
+			setSessionCookie(token)
+			return redirect(303, "/");
+		} catch (error) {
+			if (error instanceof Error && 'sqlState' in error && error.sqlState === '23505') {
+				invalid('Username is taken');
+			}
+			throw error;
+		}
 	},
 );
 

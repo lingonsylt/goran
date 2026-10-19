@@ -31,7 +31,7 @@
                 }
               },
               "creatorId": {
-                "nullable": false,
+                "nullable": true,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -69,7 +69,7 @@
             "relations": {
               "creator": {
                 "cardinality": "N:1",
-                "nullable": false,
+                "nullable": true,
                 "on": {
                   "localFields": [
                     "creatorId"
@@ -323,7 +323,7 @@
                 "creatorId": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
-                  "nullable": false
+                  "nullable": true
                 },
                 "description": {
                   "codecId": "pg/text@1",
@@ -351,6 +351,7 @@
                   "index": {
                     "name": "Motion_creatorId_idx_3a77d800"
                   },
+                  "onDelete": "setNull",
                   "source": {
                     "columns": [
                       "creatorId"
@@ -463,6 +464,7 @@
                   "index": {
                     "name": "Vote_motionId_idx_ae2b282e"
                   },
+                  "onDelete": "cascade",
                   "source": {
                     "columns": [
                       "motionId"
@@ -482,6 +484,7 @@
                   "index": {
                     "name": "Vote_voterId_idx_9733d79c"
                   },
+                  "onDelete": "cascade",
                   "source": {
                     "columns": [
                       "voterId"
@@ -521,7 +524,14 @@
                   "id"
                 ]
               },
-              "uniques": []
+              "uniques": [
+                {
+                  "columns": [
+                    "motionId",
+                    "voterId"
+                  ]
+                }
+              ]
             }
           }
         },
@@ -529,7 +539,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "6a25a714448fd85528062eaa6e7016c6b6c6f7dbb2ef6ccd7b90007bbe2aac4d"
+    "storageHash": "4a1b19ddafe1ad128260d7bf50b5ace7de2ae1b152a203eb30f4d3b301fb90e8"
   },
   "execution": {
     "executionHash": "4702bc259da4acef3fe103efb7409c1fb3b35fa964c7fef8820bf2d3bf4499dc",
