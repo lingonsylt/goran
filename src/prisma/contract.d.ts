@@ -18,9 +18,9 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'ec6ac4cffaeb813c1104a07c0c2e3cecd42282b3cb05ab55959558908259789a'>;
+  StorageHashBase<'6a25a714448fd85528062eaa6e7016c6b6c6f7dbb2ef6ccd7b90007bbe2aac4d'>;
 export type ExecutionHash =
-  ExecutionHashBase<'6eb6b9c6516cc37a235690e368964732cf281ff3f690027318b31ada1990d3fb'>;
+  ExecutionHashBase<'4702bc259da4acef3fe103efb7409c1fb3b35fa964c7fef8820bf2d3bf4499dc'>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
 
@@ -234,163 +234,143 @@ type DefaultLiteralValue<CodecId extends string, Encoded> = CodecId extends keyo
 
 export type FieldOutputTypes = {
   readonly public: {
-    readonly Bid: {
-      readonly amountSEK: CodecTypes['pg/int4@1']['output'];
-      readonly bidderId: CodecTypes['pg/text@1']['output'];
+    readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly id: CodecTypes['pg/text@1']['output'];
-      readonly itemId: CodecTypes['pg/text@1']['output'];
-    };
-    readonly Item: {
-      readonly buyoutPriceSEK: CodecTypes['pg/int4@1']['output'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
+      readonly creatorId: CodecTypes['pg/text@1']['output'];
       readonly description: CodecTypes['pg/text@1']['output'];
-      readonly endsAt: CodecTypes['pg/timestamptz-string@1']['output'] | null;
       readonly id: CodecTypes['pg/text@1']['output'];
-      readonly name: CodecTypes['pg/text@1']['output'];
-      readonly sellerId: CodecTypes['pg/text@1']['output'];
-      readonly startPriceSEK: CodecTypes['pg/int4@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly voteEstimate: CodecTypes['pg/int4@1']['output'];
     };
     readonly User: {
-      readonly balanceSEK: CodecTypes['pg/int4@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
       readonly passwordHash: CodecTypes['pg/text@1']['output'];
-      readonly phoneNumber: CodecTypes['pg/text@1']['output'];
+    };
+    readonly Vote: {
+      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
+      readonly forMotion: CodecTypes['pg/bool@1']['output'];
+      readonly id: CodecTypes['pg/text@1']['output'];
+      readonly motionId: CodecTypes['pg/text@1']['output'];
+      readonly voterId: CodecTypes['pg/text@1']['output'];
     };
   };
 };
 export type FieldInputTypes = {
   readonly public: {
-    readonly Bid: {
-      readonly amountSEK: CodecTypes['pg/int4@1']['input'];
-      readonly bidderId: CodecTypes['pg/text@1']['input'];
+    readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
-      readonly id: CodecTypes['pg/text@1']['input'];
-      readonly itemId: CodecTypes['pg/text@1']['input'];
-    };
-    readonly Item: {
-      readonly buyoutPriceSEK: CodecTypes['pg/int4@1']['input'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
+      readonly creatorId: CodecTypes['pg/text@1']['input'];
       readonly description: CodecTypes['pg/text@1']['input'];
-      readonly endsAt: CodecTypes['pg/timestamptz-string@1']['input'] | null;
       readonly id: CodecTypes['pg/text@1']['input'];
-      readonly name: CodecTypes['pg/text@1']['input'];
-      readonly sellerId: CodecTypes['pg/text@1']['input'];
-      readonly startPriceSEK: CodecTypes['pg/int4@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly voteEstimate: CodecTypes['pg/int4@1']['input'];
     };
     readonly User: {
-      readonly balanceSEK: CodecTypes['pg/int4@1']['input'];
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
       readonly passwordHash: CodecTypes['pg/text@1']['input'];
-      readonly phoneNumber: CodecTypes['pg/text@1']['input'];
+    };
+    readonly Vote: {
+      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
+      readonly forMotion: CodecTypes['pg/bool@1']['input'];
+      readonly id: CodecTypes['pg/text@1']['input'];
+      readonly motionId: CodecTypes['pg/text@1']['input'];
+      readonly voterId: CodecTypes['pg/text@1']['input'];
     };
   };
 };
 export type StorageColumnTypes = {
   readonly public: {
-    readonly Bid: {
-      readonly amountSEK: CodecTypes['pg/int4@1']['output'];
-      readonly bidderId: CodecTypes['pg/text@1']['output'];
+    readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-      readonly id: CodecTypes['pg/text@1']['output'];
-      readonly itemId: CodecTypes['pg/text@1']['output'];
-    };
-    readonly Item: {
-      readonly buyoutPriceSEK: CodecTypes['pg/int4@1']['output'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
+      readonly creatorId: CodecTypes['pg/text@1']['output'];
       readonly description: CodecTypes['pg/text@1']['output'];
-      readonly endsAt: CodecTypes['pg/timestamptz-string@1']['output'] | null;
       readonly id: CodecTypes['pg/text@1']['output'];
-      readonly name: CodecTypes['pg/text@1']['output'];
-      readonly sellerId: CodecTypes['pg/text@1']['output'];
-      readonly startPriceSEK: CodecTypes['pg/int4@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly voteEstimate: CodecTypes['pg/int4@1']['output'];
     };
     readonly User: {
-      readonly balanceSEK: CodecTypes['pg/int4@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
       readonly id: CodecTypes['pg/text@1']['output'];
       readonly name: CodecTypes['pg/text@1']['output'];
       readonly passwordHash: CodecTypes['pg/text@1']['output'];
-      readonly phoneNumber: CodecTypes['pg/text@1']['output'];
+    };
+    readonly Vote: {
+      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
+      readonly forMotion: CodecTypes['pg/bool@1']['output'];
+      readonly id: CodecTypes['pg/text@1']['output'];
+      readonly motionId: CodecTypes['pg/text@1']['output'];
+      readonly voterId: CodecTypes['pg/text@1']['output'];
     };
   };
 };
 export type StorageColumnInputTypes = {
   readonly public: {
-    readonly Bid: {
-      readonly amountSEK: CodecTypes['pg/int4@1']['input'];
-      readonly bidderId: CodecTypes['pg/text@1']['input'];
+    readonly Motion: {
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
-      readonly id: CodecTypes['pg/text@1']['input'];
-      readonly itemId: CodecTypes['pg/text@1']['input'];
-    };
-    readonly Item: {
-      readonly buyoutPriceSEK: CodecTypes['pg/int4@1']['input'] | null;
-      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
+      readonly creatorId: CodecTypes['pg/text@1']['input'];
       readonly description: CodecTypes['pg/text@1']['input'];
-      readonly endsAt: CodecTypes['pg/timestamptz-string@1']['input'] | null;
       readonly id: CodecTypes['pg/text@1']['input'];
-      readonly name: CodecTypes['pg/text@1']['input'];
-      readonly sellerId: CodecTypes['pg/text@1']['input'];
-      readonly startPriceSEK: CodecTypes['pg/int4@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly voteEstimate: CodecTypes['pg/int4@1']['input'];
     };
     readonly User: {
-      readonly balanceSEK: CodecTypes['pg/int4@1']['input'];
       readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
       readonly id: CodecTypes['pg/text@1']['input'];
       readonly name: CodecTypes['pg/text@1']['input'];
       readonly passwordHash: CodecTypes['pg/text@1']['input'];
-      readonly phoneNumber: CodecTypes['pg/text@1']['input'];
+    };
+    readonly Vote: {
+      readonly createdAt: CodecTypes['pg/timestamptz-string@1']['input'];
+      readonly forMotion: CodecTypes['pg/bool@1']['input'];
+      readonly id: CodecTypes['pg/text@1']['input'];
+      readonly motionId: CodecTypes['pg/text@1']['input'];
+      readonly voterId: CodecTypes['pg/text@1']['input'];
     };
   };
 };
 
 export namespace Models {
-  export type public_Bid = {
-    amountSEK: CodecTypes['pg/int4@1']['output'];
-    bidderId: CodecTypes['pg/text@1']['output'];
+  export type public_Motion = {
     createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
-    id: CodecTypes['pg/text@1']['output'];
-    itemId: CodecTypes['pg/text@1']['output'];
-    bidder: public_User;
-    item: public_Item;
-    readonly [RelationKeys]?: 'bidder' | 'item';
-  };
-  export type public_Item = {
-    buyoutPriceSEK: CodecTypes['pg/int4@1']['output'] | null;
-    createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
+    creatorId: CodecTypes['pg/text@1']['output'];
     description: CodecTypes['pg/text@1']['output'];
-    endsAt: CodecTypes['pg/timestamptz-string@1']['output'] | null;
     id: CodecTypes['pg/text@1']['output'];
-    name: CodecTypes['pg/text@1']['output'];
-    sellerId: CodecTypes['pg/text@1']['output'];
-    startPriceSEK: CodecTypes['pg/int4@1']['output'];
-    bids: public_Bid[];
-    seller: public_User;
-    readonly [RelationKeys]?: 'bids' | 'seller';
+    title: CodecTypes['pg/text@1']['output'];
+    voteEstimate: CodecTypes['pg/int4@1']['output'];
+    creator: public_User;
+    votes: public_Vote[];
+    readonly [RelationKeys]?: 'creator' | 'votes';
   };
   export type public_User = {
-    balanceSEK: CodecTypes['pg/int4@1']['output'];
     createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
     id: CodecTypes['pg/text@1']['output'];
     name: CodecTypes['pg/text@1']['output'];
     passwordHash: CodecTypes['pg/text@1']['output'];
-    phoneNumber: CodecTypes['pg/text@1']['output'];
-    bids: public_Bid[];
-    items: public_Item[];
-    readonly [RelationKeys]?: 'bids' | 'items';
+    motions: public_Motion[];
+    votes: public_Vote[];
+    readonly [RelationKeys]?: 'motions' | 'votes';
+  };
+  export type public_Vote = {
+    createdAt: CodecTypes['pg/timestamptz-string@1']['output'];
+    forMotion: CodecTypes['pg/bool@1']['output'];
+    id: CodecTypes['pg/text@1']['output'];
+    motionId: CodecTypes['pg/text@1']['output'];
+    voterId: CodecTypes['pg/text@1']['output'];
+    motion: public_Motion;
+    voter: public_User;
+    readonly [RelationKeys]?: 'motion' | 'voter';
   };
 }
 
 export declare const models: {
   public: {
-    Bid: Models.public_Bid;
-    Item: Models.public_Item;
+    Motion: Models.public_Motion;
     User: Models.public_User;
+    Vote: Models.public_Vote;
   };
 };
 
@@ -412,20 +392,8 @@ type ContractBase = Omit<
         readonly kind: 'postgres-schema';
         readonly entries: {
           readonly table: {
-            readonly Bid: {
+            readonly Motion: {
               columns: {
-                readonly amountSEK: {
-                  readonly dataType: 'pg/int4';
-                  readonly codecId: 'pg/int4@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly bidderId: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
                 readonly createdAt: {
                   readonly dataType: 'pg/timestamptz';
                   readonly codecId: 'pg/timestamptz-string@1';
@@ -433,75 +401,10 @@ type ContractBase = Omit<
                   readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
                   readonly many: false;
                 };
-                readonly id: {
+                readonly creatorId: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly itemId: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-              };
-              primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [];
-              indexes: readonly [
-                {
-                  readonly name: 'Bid_bidderId_idx_9913eaf0';
-                  readonly prefix: 'Bid_bidderId_idx';
-                  readonly columns: readonly ['bidderId'];
-                  readonly unique: false;
-                },
-                {
-                  readonly name: 'Bid_itemId_idx_41357140';
-                  readonly prefix: 'Bid_itemId_idx';
-                  readonly columns: readonly ['itemId'];
-                  readonly unique: false;
-                },
-              ];
-              foreignKeys: readonly [
-                {
-                  readonly source: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'Bid';
-                    readonly columns: readonly ['itemId'];
-                  };
-                  readonly target: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'Item';
-                    readonly columns: readonly ['id'];
-                  };
-                },
-                {
-                  readonly source: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'Bid';
-                    readonly columns: readonly ['bidderId'];
-                  };
-                  readonly target: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'User';
-                    readonly columns: readonly ['id'];
-                  };
-                },
-              ];
-            };
-            readonly Item: {
-              columns: {
-                readonly buyoutPriceSEK: {
-                  readonly dataType: 'pg/int4';
-                  readonly codecId: 'pg/int4@1';
-                  readonly nullable: true;
-                  readonly many: false;
-                };
-                readonly createdAt: {
-                  readonly dataType: 'pg/timestamptz';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                  readonly nullable: false;
-                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
                   readonly many: false;
                 };
                 readonly description: {
@@ -510,31 +413,19 @@ type ContractBase = Omit<
                   readonly nullable: false;
                   readonly many: false;
                 };
-                readonly endsAt: {
-                  readonly dataType: 'pg/timestamptz';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                  readonly nullable: true;
-                  readonly many: false;
-                };
                 readonly id: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
                   readonly many: false;
                 };
-                readonly name: {
+                readonly title: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
                   readonly many: false;
                 };
-                readonly sellerId: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly startPriceSEK: {
+                readonly voteEstimate: {
                   readonly dataType: 'pg/int4';
                   readonly codecId: 'pg/int4@1';
                   readonly nullable: false;
@@ -545,9 +436,9 @@ type ContractBase = Omit<
               uniques: readonly [];
               indexes: readonly [
                 {
-                  readonly name: 'Item_sellerId_idx_d71255f2';
-                  readonly prefix: 'Item_sellerId_idx';
-                  readonly columns: readonly ['sellerId'];
+                  readonly name: 'Motion_creatorId_idx_3a77d800';
+                  readonly prefix: 'Motion_creatorId_idx';
+                  readonly columns: readonly ['creatorId'];
                   readonly unique: false;
                 },
               ];
@@ -555,8 +446,8 @@ type ContractBase = Omit<
                 {
                   readonly source: {
                     readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'Item';
-                    readonly columns: readonly ['sellerId'];
+                    readonly tableName: 'Motion';
+                    readonly columns: readonly ['creatorId'];
                   };
                   readonly target: {
                     readonly namespaceId: 'public' & NamespaceId;
@@ -568,16 +459,6 @@ type ContractBase = Omit<
             };
             readonly User: {
               columns: {
-                readonly balanceSEK: {
-                  readonly dataType: 'pg/int4';
-                  readonly codecId: 'pg/int4@1';
-                  readonly nullable: false;
-                  readonly default: {
-                    readonly kind: 'literal';
-                    readonly value: DefaultLiteralValue<'pg/int4@1', 0>;
-                  };
-                  readonly many: false;
-                };
                 readonly createdAt: {
                   readonly dataType: 'pg/timestamptz';
                   readonly codecId: 'pg/timestamptz-string@1';
@@ -603,7 +484,40 @@ type ContractBase = Omit<
                   readonly nullable: false;
                   readonly many: false;
                 };
-                readonly phoneNumber: {
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [{ readonly columns: readonly ['name'] }];
+              indexes: readonly [];
+              foreignKeys: readonly [];
+            };
+            readonly Vote: {
+              columns: {
+                readonly createdAt: {
+                  readonly dataType: 'pg/timestamptz';
+                  readonly codecId: 'pg/timestamptz-string@1';
+                  readonly nullable: false;
+                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
+                  readonly many: false;
+                };
+                readonly forMotion: {
+                  readonly dataType: 'pg/bool';
+                  readonly codecId: 'pg/bool@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly id: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly motionId: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly voterId: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
@@ -611,9 +525,47 @@ type ContractBase = Omit<
                 };
               };
               primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [{ readonly columns: readonly ['phoneNumber'] }];
-              indexes: readonly [];
-              foreignKeys: readonly [];
+              uniques: readonly [];
+              indexes: readonly [
+                {
+                  readonly name: 'Vote_motionId_idx_ae2b282e';
+                  readonly prefix: 'Vote_motionId_idx';
+                  readonly columns: readonly ['motionId'];
+                  readonly unique: false;
+                },
+                {
+                  readonly name: 'Vote_voterId_idx_9733d79c';
+                  readonly prefix: 'Vote_voterId_idx';
+                  readonly columns: readonly ['voterId'];
+                  readonly unique: false;
+                },
+              ];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Vote';
+                    readonly columns: readonly ['motionId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Motion';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Vote';
+                    readonly columns: readonly ['voterId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'User';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
             };
           };
         };
@@ -626,24 +578,16 @@ type ContractBase = Omit<
   readonly target: 'postgres';
   readonly targetFamily: 'sql';
   readonly roots: {
-    readonly Bid: { readonly namespace: 'public' & NamespaceId; readonly model: 'Bid' };
-    readonly Item: { readonly namespace: 'public' & NamespaceId; readonly model: 'Item' };
+    readonly Motion: { readonly namespace: 'public' & NamespaceId; readonly model: 'Motion' };
     readonly User: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
+    readonly Vote: { readonly namespace: 'public' & NamespaceId; readonly model: 'Vote' };
   };
   readonly domain: {
     readonly namespaces: {
       readonly public: {
         readonly models: {
-          readonly Bid: {
+          readonly Motion: {
             readonly fields: {
-              readonly amountSEK: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
-              };
-              readonly bidderId: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
               readonly createdAt: {
                 readonly nullable: false;
                 readonly type: {
@@ -651,128 +595,61 @@ type ContractBase = Omit<
                   readonly codecId: 'pg/timestamptz-string@1';
                 };
               };
-              readonly id: {
+              readonly creatorId: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly itemId: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-            };
-            readonly relations: {
-              readonly bidder: {
-                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
-                readonly cardinality: 'N:1';
-                readonly nullable: false;
-                readonly on: {
-                  readonly localFields: readonly ['bidderId'];
-                  readonly targetFields: readonly ['id'];
-                };
-              };
-              readonly item: {
-                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Item' };
-                readonly cardinality: 'N:1';
-                readonly nullable: false;
-                readonly on: {
-                  readonly localFields: readonly ['itemId'];
-                  readonly targetFields: readonly ['id'];
-                };
-              };
-            };
-            readonly storage: {
-              readonly table: 'Bid';
-              readonly namespaceId: 'public';
-              readonly fields: {
-                readonly amountSEK: { readonly column: 'amountSEK' };
-                readonly bidderId: { readonly column: 'bidderId' };
-                readonly createdAt: { readonly column: 'createdAt' };
-                readonly id: { readonly column: 'id' };
-                readonly itemId: { readonly column: 'itemId' };
-              };
-            };
-          };
-          readonly Item: {
-            readonly fields: {
-              readonly buyoutPriceSEK: {
-                readonly nullable: true;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
-              };
-              readonly createdAt: {
-                readonly nullable: false;
-                readonly type: {
-                  readonly kind: 'scalar';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                };
               };
               readonly description: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly endsAt: {
-                readonly nullable: true;
-                readonly type: {
-                  readonly kind: 'scalar';
-                  readonly codecId: 'pg/timestamptz-string@1';
-                };
-              };
               readonly id: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly name: {
+              readonly title: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly sellerId: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly startPriceSEK: {
+              readonly voteEstimate: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
             };
             readonly relations: {
-              readonly bids: {
-                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Bid' };
-                readonly cardinality: '1:N';
-                readonly on: {
-                  readonly localFields: readonly ['id'];
-                  readonly targetFields: readonly ['itemId'];
-                };
-              };
-              readonly seller: {
+              readonly creator: {
                 readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
                 readonly cardinality: 'N:1';
                 readonly nullable: false;
                 readonly on: {
-                  readonly localFields: readonly ['sellerId'];
+                  readonly localFields: readonly ['creatorId'];
                   readonly targetFields: readonly ['id'];
+                };
+              };
+              readonly votes: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Vote' };
+                readonly cardinality: '1:N';
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['motionId'];
                 };
               };
             };
             readonly storage: {
-              readonly table: 'Item';
+              readonly table: 'Motion';
               readonly namespaceId: 'public';
               readonly fields: {
-                readonly buyoutPriceSEK: { readonly column: 'buyoutPriceSEK' };
                 readonly createdAt: { readonly column: 'createdAt' };
+                readonly creatorId: { readonly column: 'creatorId' };
                 readonly description: { readonly column: 'description' };
-                readonly endsAt: { readonly column: 'endsAt' };
                 readonly id: { readonly column: 'id' };
-                readonly name: { readonly column: 'name' };
-                readonly sellerId: { readonly column: 'sellerId' };
-                readonly startPriceSEK: { readonly column: 'startPriceSEK' };
+                readonly title: { readonly column: 'title' };
+                readonly voteEstimate: { readonly column: 'voteEstimate' };
               };
             };
           };
           readonly User: {
             readonly fields: {
-              readonly balanceSEK: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
-              };
               readonly createdAt: {
                 readonly nullable: false;
                 readonly type: {
@@ -792,26 +669,25 @@ type ContractBase = Omit<
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly phoneNumber: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
             };
             readonly relations: {
-              readonly bids: {
-                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Bid' };
+              readonly motions: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Motion';
+                };
                 readonly cardinality: '1:N';
                 readonly on: {
                   readonly localFields: readonly ['id'];
-                  readonly targetFields: readonly ['bidderId'];
+                  readonly targetFields: readonly ['creatorId'];
                 };
               };
-              readonly items: {
-                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Item' };
+              readonly votes: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Vote' };
                 readonly cardinality: '1:N';
                 readonly on: {
                   readonly localFields: readonly ['id'];
-                  readonly targetFields: readonly ['sellerId'];
+                  readonly targetFields: readonly ['voterId'];
                 };
               };
             };
@@ -819,12 +695,71 @@ type ContractBase = Omit<
               readonly table: 'User';
               readonly namespaceId: 'public';
               readonly fields: {
-                readonly balanceSEK: { readonly column: 'balanceSEK' };
                 readonly createdAt: { readonly column: 'createdAt' };
                 readonly id: { readonly column: 'id' };
                 readonly name: { readonly column: 'name' };
                 readonly passwordHash: { readonly column: 'passwordHash' };
-                readonly phoneNumber: { readonly column: 'phoneNumber' };
+              };
+            };
+          };
+          readonly Vote: {
+            readonly fields: {
+              readonly createdAt: {
+                readonly nullable: false;
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-string@1';
+                };
+              };
+              readonly forMotion: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/bool@1' };
+              };
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly motionId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly voterId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: {
+              readonly motion: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Motion';
+                };
+                readonly cardinality: 'N:1';
+                readonly nullable: false;
+                readonly on: {
+                  readonly localFields: readonly ['motionId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+              readonly voter: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
+                readonly cardinality: 'N:1';
+                readonly nullable: false;
+                readonly on: {
+                  readonly localFields: readonly ['voterId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+            };
+            readonly storage: {
+              readonly table: 'Vote';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly createdAt: { readonly column: 'createdAt' };
+                readonly forMotion: { readonly column: 'forMotion' };
+                readonly id: { readonly column: 'id' };
+                readonly motionId: { readonly column: 'motionId' };
+                readonly voterId: { readonly column: 'voterId' };
               };
             };
           };
@@ -867,15 +802,7 @@ type ContractBase = Omit<
         {
           readonly onCreate: { readonly id: 'uuidv7'; readonly kind: 'generator' };
           readonly ref: {
-            readonly entry: 'Bid';
-            readonly field: 'id';
-            readonly namespace: 'public';
-          };
-        },
-        {
-          readonly onCreate: { readonly id: 'uuidv7'; readonly kind: 'generator' };
-          readonly ref: {
-            readonly entry: 'Item';
+            readonly entry: 'Motion';
             readonly field: 'id';
             readonly namespace: 'public';
           };
@@ -884,6 +811,14 @@ type ContractBase = Omit<
           readonly onCreate: { readonly id: 'uuidv7'; readonly kind: 'generator' };
           readonly ref: {
             readonly entry: 'User';
+            readonly field: 'id';
+            readonly namespace: 'public';
+          };
+        },
+        {
+          readonly onCreate: { readonly id: 'uuidv7'; readonly kind: 'generator' };
+          readonly ref: {
+            readonly entry: 'Vote';
             readonly field: 'id';
             readonly namespace: 'public';
           };

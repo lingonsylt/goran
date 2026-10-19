@@ -2,52 +2,41 @@
 model User {
   id                  String            @id @default(uuid(7))
 
-  phoneNumber         String            @unique
-  name                String
+  name                String            @unique
   passwordHash        String
 
-  totalBalanceSEK     Int               @default(0)
-  availableBalanceSEK Int               @default(0)
-
-  items               Item[]
-  bids                Bid[]
+  motions             Motion[]
+  votes               Vote[]
 
   createdAt           TimestamptzString @default(now())
-
-  @@check(expression: sql`phone_number ~ '^\\+[1-9][0-9]{1,14}$'`, name: "user_phone_e164")
 }
 
-model Item {
-  id             String             @id @default(uuid(7))
+model Motion {
+  id           String            @id @default(uuid(7))
 
-  name           String
-  description    String
+  title        String
+  description  String
 
-  startPriceSEK  Int
-  buyoutPriceSEK Int?
+  voteEstimate Int
 
-  seller         User               @relation(fields: [sellerId], references: [id])
-  sellerId       String
+  creator      User              @relation(fields: [creatorId], references: [id])
+  creatorId    String
 
-  winner         User?              @relation(fields: [winnerId], references: [id])
-  winnerId       String?
+  votes        Vote[]
 
-  bids           Bid[]
-
-  createdAt      TimestamptzString  @default(now())
-  endsAt         TimestamptzString?
+  createdAt    TimestamptzString @default(now())
 }
 
-model Bid {
+model Vote {
   id        String            @id @default(uuid(7))
 
-  amountSEK Int
+  forMotion Boolean
 
-  item      Item              @relation(fields: [itemId], references: [id])
-  itemId    String
+  motion    Motion            @relation(fields: [motionId], references: [id])
+  motionId  String
 
-  bidder    User              @relation(fields: [bidderId], references: [id])
-  bidderId  String
+  voter     User              @relation(fields: [voterId], references: [id])
+  voterId   String
 
   createdAt TimestamptzString @default(now())
 }

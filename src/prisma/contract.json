@@ -4,16 +4,16 @@
   "target": "postgres",
   "profileHash": "3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2",
   "roots": {
-    "Bid": {
-      "model": "Bid",
-      "namespace": "public"
-    },
-    "Item": {
-      "model": "Item",
+    "Motion": {
+      "model": "Motion",
       "namespace": "public"
     },
     "User": {
       "model": "User",
+      "namespace": "public"
+    },
+    "Vote": {
+      "model": "Vote",
       "namespace": "public"
     }
   },
@@ -21,22 +21,8 @@
     "namespaces": {
       "public": {
         "models": {
-          "Bid": {
+          "Motion": {
             "fields": {
-              "amountSEK": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/int4@1",
-                  "kind": "scalar"
-                }
-              },
-              "bidderId": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
-              },
               "createdAt": {
                 "nullable": false,
                 "type": {
@@ -44,90 +30,10 @@
                   "kind": "scalar"
                 }
               },
-              "id": {
+              "creatorId": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
-              },
-              "itemId": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
-              }
-            },
-            "relations": {
-              "bidder": {
-                "cardinality": "N:1",
-                "nullable": false,
-                "on": {
-                  "localFields": [
-                    "bidderId"
-                  ],
-                  "targetFields": [
-                    "id"
-                  ]
-                },
-                "to": {
-                  "model": "User",
-                  "namespace": "public"
-                }
-              },
-              "item": {
-                "cardinality": "N:1",
-                "nullable": false,
-                "on": {
-                  "localFields": [
-                    "itemId"
-                  ],
-                  "targetFields": [
-                    "id"
-                  ]
-                },
-                "to": {
-                  "model": "Item",
-                  "namespace": "public"
-                }
-              }
-            },
-            "storage": {
-              "fields": {
-                "amountSEK": {
-                  "column": "amountSEK"
-                },
-                "bidderId": {
-                  "column": "bidderId"
-                },
-                "createdAt": {
-                  "column": "createdAt"
-                },
-                "id": {
-                  "column": "id"
-                },
-                "itemId": {
-                  "column": "itemId"
-                }
-              },
-              "namespaceId": "public",
-              "table": "Bid"
-            }
-          },
-          "Item": {
-            "fields": {
-              "buyoutPriceSEK": {
-                "nullable": true,
-                "type": {
-                  "codecId": "pg/int4@1",
-                  "kind": "scalar"
-                }
-              },
-              "createdAt": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/timestamptz-string@1",
                   "kind": "scalar"
                 }
               },
@@ -138,13 +44,6 @@
                   "kind": "scalar"
                 }
               },
-              "endsAt": {
-                "nullable": true,
-                "type": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "kind": "scalar"
-                }
-              },
               "id": {
                 "nullable": false,
                 "type": {
@@ -152,21 +51,14 @@
                   "kind": "scalar"
                 }
               },
-              "name": {
+              "title": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               },
-              "sellerId": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
-              },
-              "startPriceSEK": {
+              "voteEstimate": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/int4@1",
@@ -175,27 +67,12 @@
               }
             },
             "relations": {
-              "bids": {
-                "cardinality": "1:N",
-                "on": {
-                  "localFields": [
-                    "id"
-                  ],
-                  "targetFields": [
-                    "itemId"
-                  ]
-                },
-                "to": {
-                  "model": "Bid",
-                  "namespace": "public"
-                }
-              },
-              "seller": {
+              "creator": {
                 "cardinality": "N:1",
                 "nullable": false,
                 "on": {
                   "localFields": [
-                    "sellerId"
+                    "creatorId"
                   ],
                   "targetFields": [
                     "id"
@@ -205,48 +82,50 @@
                   "model": "User",
                   "namespace": "public"
                 }
+              },
+              "votes": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "motionId"
+                  ]
+                },
+                "to": {
+                  "model": "Vote",
+                  "namespace": "public"
+                }
               }
             },
             "storage": {
               "fields": {
-                "buyoutPriceSEK": {
-                  "column": "buyoutPriceSEK"
-                },
                 "createdAt": {
                   "column": "createdAt"
+                },
+                "creatorId": {
+                  "column": "creatorId"
                 },
                 "description": {
                   "column": "description"
                 },
-                "endsAt": {
-                  "column": "endsAt"
-                },
                 "id": {
                   "column": "id"
                 },
-                "name": {
-                  "column": "name"
+                "title": {
+                  "column": "title"
                 },
-                "sellerId": {
-                  "column": "sellerId"
-                },
-                "startPriceSEK": {
-                  "column": "startPriceSEK"
+                "voteEstimate": {
+                  "column": "voteEstimate"
                 }
               },
               "namespaceId": "public",
-              "table": "Item"
+              "table": "Motion"
             }
           },
           "User": {
             "fields": {
-              "balanceSEK": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/int4@1",
-                  "kind": "scalar"
-                }
-              },
               "createdAt": {
                 "nullable": false,
                 "type": {
@@ -274,52 +153,42 @@
                   "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
-              },
-              "phoneNumber": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
               }
             },
             "relations": {
-              "bids": {
+              "motions": {
                 "cardinality": "1:N",
                 "on": {
                   "localFields": [
                     "id"
                   ],
                   "targetFields": [
-                    "bidderId"
+                    "creatorId"
                   ]
                 },
                 "to": {
-                  "model": "Bid",
+                  "model": "Motion",
                   "namespace": "public"
                 }
               },
-              "items": {
+              "votes": {
                 "cardinality": "1:N",
                 "on": {
                   "localFields": [
                     "id"
                   ],
                   "targetFields": [
-                    "sellerId"
+                    "voterId"
                   ]
                 },
                 "to": {
-                  "model": "Item",
+                  "model": "Vote",
                   "namespace": "public"
                 }
               }
             },
             "storage": {
               "fields": {
-                "balanceSEK": {
-                  "column": "balanceSEK"
-                },
                 "createdAt": {
                   "column": "createdAt"
                 },
@@ -331,13 +200,104 @@
                 },
                 "passwordHash": {
                   "column": "passwordHash"
-                },
-                "phoneNumber": {
-                  "column": "phoneNumber"
                 }
               },
               "namespaceId": "public",
               "table": "User"
+            }
+          },
+          "Vote": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "forMotion": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "motionId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "voterId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "motion": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "motionId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Motion",
+                  "namespace": "public"
+                }
+              },
+              "voter": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "voterId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "User",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "createdAt"
+                },
+                "forMotion": {
+                  "column": "forMotion"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "motionId": {
+                  "column": "motionId"
+                },
+                "voterId": {
+                  "column": "voterId"
+                }
+              },
+              "namespaceId": "public",
+              "table": "Vote"
             }
           }
         }
@@ -349,18 +309,8 @@
       "public": {
         "entries": {
           "table": {
-            "Bid": {
+            "Motion": {
               "columns": {
-                "amountSEK": {
-                  "codecId": "pg/int4@1",
-                  "dataType": "pg/int4",
-                  "nullable": false
-                },
-                "bidderId": {
-                  "codecId": "pg/text@1",
-                  "dataType": "pg/text",
-                  "nullable": false
-                },
                 "createdAt": {
                   "codecId": "pg/timestamptz-string@1",
                   "dataType": "pg/timestamptz",
@@ -370,96 +320,9 @@
                   },
                   "nullable": false
                 },
-                "id": {
+                "creatorId": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
-                  "nullable": false
-                },
-                "itemId": {
-                  "codecId": "pg/text@1",
-                  "dataType": "pg/text",
-                  "nullable": false
-                }
-              },
-              "foreignKeys": [
-                {
-                  "index": {
-                    "name": "Bid_itemId_idx_41357140"
-                  },
-                  "source": {
-                    "columns": [
-                      "itemId"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "Bid"
-                  },
-                  "target": {
-                    "columns": [
-                      "id"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "Item"
-                  }
-                },
-                {
-                  "index": {
-                    "name": "Bid_bidderId_idx_9913eaf0"
-                  },
-                  "source": {
-                    "columns": [
-                      "bidderId"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "Bid"
-                  },
-                  "target": {
-                    "columns": [
-                      "id"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "User"
-                  }
-                }
-              ],
-              "indexes": [
-                {
-                  "columns": [
-                    "bidderId"
-                  ],
-                  "name": "Bid_bidderId_idx_9913eaf0",
-                  "prefix": "Bid_bidderId_idx",
-                  "unique": false
-                },
-                {
-                  "columns": [
-                    "itemId"
-                  ],
-                  "name": "Bid_itemId_idx_41357140",
-                  "prefix": "Bid_itemId_idx",
-                  "unique": false
-                }
-              ],
-              "primaryKey": {
-                "columns": [
-                  "id"
-                ]
-              },
-              "uniques": []
-            },
-            "Item": {
-              "columns": {
-                "buyoutPriceSEK": {
-                  "codecId": "pg/int4@1",
-                  "dataType": "pg/int4",
-                  "nullable": true
-                },
-                "createdAt": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "dataType": "pg/timestamptz",
-                  "default": {
-                    "expression": "now()",
-                    "kind": "function"
-                  },
                   "nullable": false
                 },
                 "description": {
@@ -467,27 +330,17 @@
                   "dataType": "pg/text",
                   "nullable": false
                 },
-                "endsAt": {
-                  "codecId": "pg/timestamptz-string@1",
-                  "dataType": "pg/timestamptz",
-                  "nullable": true
-                },
                 "id": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
                   "nullable": false
                 },
-                "name": {
+                "title": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
                   "nullable": false
                 },
-                "sellerId": {
-                  "codecId": "pg/text@1",
-                  "dataType": "pg/text",
-                  "nullable": false
-                },
-                "startPriceSEK": {
+                "voteEstimate": {
                   "codecId": "pg/int4@1",
                   "dataType": "pg/int4",
                   "nullable": false
@@ -496,14 +349,14 @@
               "foreignKeys": [
                 {
                   "index": {
-                    "name": "Item_sellerId_idx_d71255f2"
+                    "name": "Motion_creatorId_idx_3a77d800"
                   },
                   "source": {
                     "columns": [
-                      "sellerId"
+                      "creatorId"
                     ],
                     "namespaceId": "public",
-                    "tableName": "Item"
+                    "tableName": "Motion"
                   },
                   "target": {
                     "columns": [
@@ -517,10 +370,10 @@
               "indexes": [
                 {
                   "columns": [
-                    "sellerId"
+                    "creatorId"
                   ],
-                  "name": "Item_sellerId_idx_d71255f2",
-                  "prefix": "Item_sellerId_idx",
+                  "name": "Motion_creatorId_idx_3a77d800",
+                  "prefix": "Motion_creatorId_idx",
                   "unique": false
                 }
               ],
@@ -532,23 +385,7 @@
               "uniques": []
             },
             "User": {
-              "checks": [
-                {
-                  "expression": "phone_number ~ '^\\+[1-9][0-9]{1,14}$'",
-                  "name": "user_phone_e164_db75d5f3",
-                  "prefix": "user_phone_e164"
-                }
-              ],
               "columns": {
-                "balanceSEK": {
-                  "codecId": "pg/int4@1",
-                  "dataType": "pg/int4",
-                  "default": {
-                    "kind": "literal",
-                    "value": 0
-                  },
-                  "nullable": false
-                },
                 "createdAt": {
                   "codecId": "pg/timestamptz-string@1",
                   "dataType": "pg/timestamptz",
@@ -569,11 +406,6 @@
                   "nullable": false
                 },
                 "passwordHash": {
-                  "codecId": "pg/text@1",
-                  "dataType": "pg/text",
-                  "nullable": false
-                },
-                "phoneNumber": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
                   "nullable": false
@@ -589,10 +421,107 @@
               "uniques": [
                 {
                   "columns": [
-                    "phoneNumber"
+                    "name"
                   ]
                 }
               ]
+            },
+            "Vote": {
+              "columns": {
+                "createdAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "dataType": "pg/timestamptz",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                },
+                "forMotion": {
+                  "codecId": "pg/bool@1",
+                  "dataType": "pg/bool",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "motionId": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "voterId": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "index": {
+                    "name": "Vote_motionId_idx_ae2b282e"
+                  },
+                  "source": {
+                    "columns": [
+                      "motionId"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "Vote"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "Motion"
+                  }
+                },
+                {
+                  "index": {
+                    "name": "Vote_voterId_idx_9733d79c"
+                  },
+                  "source": {
+                    "columns": [
+                      "voterId"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "Vote"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "User"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "motionId"
+                  ],
+                  "name": "Vote_motionId_idx_ae2b282e",
+                  "prefix": "Vote_motionId_idx",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "voterId"
+                  ],
+                  "name": "Vote_voterId_idx_9733d79c",
+                  "prefix": "Vote_voterId_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": []
             }
           }
         },
@@ -600,10 +529,10 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "ec6ac4cffaeb813c1104a07c0c2e3cecd42282b3cb05ab55959558908259789a"
+    "storageHash": "6a25a714448fd85528062eaa6e7016c6b6c6f7dbb2ef6ccd7b90007bbe2aac4d"
   },
   "execution": {
-    "executionHash": "6eb6b9c6516cc37a235690e368964732cf281ff3f690027318b31ada1990d3fb",
+    "executionHash": "4702bc259da4acef3fe103efb7409c1fb3b35fa964c7fef8820bf2d3bf4499dc",
     "mutations": {
       "defaults": [
         {
@@ -612,18 +541,7 @@
             "kind": "generator"
           },
           "ref": {
-            "entry": "Bid",
-            "field": "id",
-            "namespace": "public"
-          }
-        },
-        {
-          "onCreate": {
-            "id": "uuidv7",
-            "kind": "generator"
-          },
-          "ref": {
-            "entry": "Item",
+            "entry": "Motion",
             "field": "id",
             "namespace": "public"
           }
@@ -635,6 +553,17 @@
           },
           "ref": {
             "entry": "User",
+            "field": "id",
+            "namespace": "public"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "uuidv7",
+            "kind": "generator"
+          },
+          "ref": {
+            "entry": "Vote",
             "field": "id",
             "namespace": "public"
           }
