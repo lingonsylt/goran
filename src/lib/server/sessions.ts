@@ -24,8 +24,14 @@ export const deleteSessionCookie = () => {
 export const createSession = async (userId: string) => {
 	const sessionToken = generateSessionToken();
 
+	const previousSessionToken = await redis.get(`user_session:${userId}`);
+
+	if (previousSessionToken) {
+		await redis.del(`session:${sessionToken}`);
+	}
+
 	await redis.setex(`session:${sessionToken}`, SESSION_LIFETIME_SEC, userId);
-	await redis.sadd(`user_sessions:${userId}`, sessionToken);
+	await redis.set(`user_session:${userId}`, sessionToken);
 
 	return sessionToken;
 };
@@ -36,19 +42,8 @@ export const deleteSession = async (sessionToken: string) => {
 	const userId = await redis.get(`session:${sessionToken}`);
 
 	if (userId) {
-		await redis.srem(`user_sessions:${userId}`, sessionToken);
+		await redis.del(`user_session:${userId}`);
 	}
 	await redis.del(`session:${sessionToken}`);
 
-};
-
-export const deleteSessionsByUserId = async (userId: string) => {
-	const sessionTokens = await redis.smembers(`user_sessions:${userId}`);
-
-	if (sessionTokens.length > 0) {
-		const sessionKeys = sessionTokens.map((token: string) => `session:${token}`);
-		await redis.del(...sessionKeys);
-	}
-
-	await redis.del(`user_sessions:${userId}`);
 };

@@ -1,7 +1,7 @@
 import { form, getRequestEvent } from "$app/server";
 import * as v from "valibot";
 import { db } from "../../prisma/db";
-import { createSession, deleteSession, deleteSessionCookie, deleteSessionsByUserId, getSession, setSessionCookie } from "#lib/server/sessions.ts";
+import { createSession, deleteSession, deleteSessionCookie, getSession, setSessionCookie } from "#lib/server/sessions.ts";
 import { invalid, redirect } from "@sveltejs/kit";
 import { nonEmptyString } from "#lib/schemas.ts";
 
@@ -59,6 +59,7 @@ export const deleteUser = form(
 		const { locals } = getRequestEvent();
 
 		await db.orm.public.User.where({ id: locals.userId }).delete()
-		await deleteSessionsByUserId(locals.userId)
+		const session = await getSession(locals.userId)
+		if (session) await deleteSession(session)
 	}
 )
