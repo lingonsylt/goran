@@ -5,42 +5,36 @@ import { createSession, deleteSession, deleteSessionCookie, getSession, setSessi
 import { invalid, redirect } from "@sveltejs/kit";
 import { nonEmptyString } from "#lib/schemas.ts";
 
-export const login = form(
+export const auth = form(
 	v.object({
 		name: nonEmptyString(),
 		password: nonEmptyString(),
+		action: v.picklist(['login', 'register'])
 	}),
-	async ({ name, password }) => {
-		const user = await db.orm.public.User.first({ name });
-		if (!user) invalid('Invalid credentials');
+	async ({ name, password, action }) => {
+		if (action === 'login') {
+			const user = await db.orm.public.User.first({ name });
+			if (!user) invalid('Invalid credentials');
 
-		const isCorrect = await Bun.password.verify(password, user.passwordHash)
-		if (!isCorrect) invalid('Invalid credentials')
+			const isCorrect = await Bun.password.verify(password, user.passwordHash)
+			if (!isCorrect) invalid('Invalid credentials')
 
-		const token = await createSession(user.id);
-		setSessionCookie(token)
-		return redirect(303, "/");
-	},
-);
-
-export const register = form(
-	v.object({
-		name: nonEmptyString(),
-		password: nonEmptyString(),
-	}),
-	async ({ name, password }) => {
-
-		const passwordHash = await Bun.password.hash(password)
-		try {
-			const newUser = await db.orm.public.User.create({ name, passwordHash });
-			const token = await createSession(newUser.id);
+			const token = await createSession(user.id);
 			setSessionCookie(token)
 			return redirect(303, "/");
-		} catch (error) {
-			if (error instanceof Error && 'sqlState' in error && error.sqlState === '23505') {
-				invalid('Username is taken');
+		} else {
+			const passwordHash = await Bun.password.hash(password)
+			try {
+				const newUser = await db.orm.public.User.create({ name, passwordHash });
+				const token = await createSession(newUser.id);
+				setSessionCookie(token)
+				return redirect(303, "/");
+			} catch (error) {
+				if (error instanceof Error && 'sqlState' in error && error.sqlState === '23505') {
+					invalid('Username is taken');
+				}
+				throw error;
 			}
-			throw error;
 		}
 	},
 );
