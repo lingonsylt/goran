@@ -1,0 +1,46 @@
+@plugin '@tailwindcss/forms';
+@import "tailwindcss";
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+
+@layer base {
+
+	button,
+	a {
+		@apply cursor-pointer flex justify-center items-center;
+	}
+
+	body {
+		@apply bg-light text-dark;
+		font-family: "JetBrains Mono Variable", monospace;
+	}
+
+	* {
+		@apply border-border;
+	}
+}
+
+@layer components {
+	.btn-primary {
+		@apply w-fit px-4 py-1 text-nowrap bg-dark text-light hover:bg-dark-hover;
+	}
+
+	.btn-secondary {
+		@apply w-fit px-4 py-1 text-nowrap bg-light text-dark border border-dark hover:bg-light-hover;
+	}
+
+	.text-lite {
+		@apply text-sm text-dark-less;
+	}
+}
+
+@theme {
+	--color-dark: var(--color-stone-900);
+	--color-dark-hover: var(--color-stone-800);
+	--color-dark-less: var(--color-stone-700);
+	--color-light: var(--color-stone-100);
+	--color-light-hover: var(--color-stone-200);
+	--color-light-less: var(--color-stone-300);
+	--color-border: var(--color-stone-400);
+	--color-error: var(--color-red-500);
+	--color-error: var(--color-red-500);
+}

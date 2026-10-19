@@ -1,0 +1,53 @@
+// use prisma-8
+model User {
+  id                  String            @id @default(uuid(7))
+
+  phoneNumber         String            @unique
+  name                String
+  passwordHash        String
+
+  totalBalanceSEK     Int               @default(0)
+  availableBalanceSEK Int               @default(0)
+
+  items               Item[]
+  bids                Bid[]
+
+  createdAt           TimestamptzString @default(now())
+
+  @@check(expression: sql`phone_number ~ '^\\+[1-9][0-9]{1,14}$'`, name: "user_phone_e164")
+}
+
+model Item {
+  id             String             @id @default(uuid(7))
+
+  name           String
+  description    String
+
+  startPriceSEK  Int
+  buyoutPriceSEK Int?
+
+  seller         User               @relation(fields: [sellerId], references: [id])
+  sellerId       String
+
+  winner         User?              @relation(fields: [winnerId], references: [id])
+  winnerId       String?
+
+  bids           Bid[]
+
+  createdAt      TimestamptzString  @default(now())
+  endsAt         TimestamptzString?
+}
+
+model Bid {
+  id        String            @id @default(uuid(7))
+
+  amountSEK Int
+
+  item      Item              @relation(fields: [itemId], references: [id])
+  itemId    String
+
+  bidder    User              @relation(fields: [bidderId], references: [id])
+  bidderId  String
+
+  createdAt TimestamptzString @default(now())
+}
