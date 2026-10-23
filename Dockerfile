@@ -10,11 +10,11 @@ COPY . .
 FROM base AS dev
 
 EXPOSE 5173
-CMD ["bun", "run", "dev", "--host"]
+CMD ["bun", "--bun", "run", "dev", "--host"]
 
 FROM base AS builder
 
-RUN bun run build
+RUN bun --bun run build
 
 FROM oven/bun:latest AS prod
 
@@ -27,4 +27,4 @@ COPY --from=builder /app/build ./build
 
 ENV NODE_ENV=production
 EXPOSE 3000
-CMD ["bun", "build/index.js"]
+CMD ["bun", "./build/index.js"]

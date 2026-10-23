@@ -12,6 +12,7 @@
 
 <h1>{motion.title}</h1>
 <p>{motion.description}</p>
+<p>by {motion.creator?.name ?? 'Anonymous'}</p>
 <form {...voteForm}>
 	<button {...voteForm.fields.action.as('submit', 'for')}>Vote for</button>
 	<button {...voteForm.fields.action.as('submit', 'against')}>Vote against</button>

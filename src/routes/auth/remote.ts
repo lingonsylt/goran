@@ -1,9 +1,9 @@
-import { form, getRequestEvent } from "$app/server";
+import { form, getRequestEvent, query } from "$app/server";
 import * as v from "valibot";
-import { db } from "../../prisma/db";
 import { createSession, deleteSession, deleteSessionCookie, getSession, setSessionCookie } from "#lib/server/sessions.ts";
 import { invalid, redirect } from "@sveltejs/kit";
 import { nonEmptyString } from "#lib/schemas.ts";
+import { db } from "../../prisma/db";
 
 export const auth = form(
 	v.object({
@@ -57,3 +57,8 @@ export const deleteUser = form(
 		if (session) await deleteSession(session)
 	}
 )
+
+export const getIsLoggedIn = query(async () => {
+	const { locals } = getRequestEvent()
+	return !!locals.userId
+})

@@ -380,6 +380,14 @@
                   "name": "Motion_creatorId_idx_3a77d800",
                   "prefix": "Motion_creatorId_idx",
                   "unique": false
+                },
+                {
+                  "columns": [
+                    "voteEstimate"
+                  ],
+                  "name": "Motion_voteEstimate_idx_d2e8dc62",
+                  "prefix": "Motion_voteEstimate_idx",
+                  "unique": false
                 }
               ],
               "primaryKey": {
@@ -543,7 +551,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "e6d32d50f710ac15e4132d263b0713a927062f82b4dc062560b9e12c64d81cda"
+    "storageHash": "dfd9ebeb822874b0dc289dce2a5c74cdae0b81702924a35db69aed952866f5f2"
   },
   "execution": {
     "executionHash": "4702bc259da4acef3fe103efb7409c1fb3b35fa964c7fef8820bf2d3bf4499dc",

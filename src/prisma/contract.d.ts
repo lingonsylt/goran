@@ -18,7 +18,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'e6d32d50f710ac15e4132d263b0713a927062f82b4dc062560b9e12c64d81cda'>;
+  StorageHashBase<'dfd9ebeb822874b0dc289dce2a5c74cdae0b81702924a35db69aed952866f5f2'>;
 export type ExecutionHash =
   ExecutionHashBase<'4702bc259da4acef3fe103efb7409c1fb3b35fa964c7fef8820bf2d3bf4499dc'>;
 export type ProfileHash =
@@ -443,6 +443,12 @@ type ContractBase = Omit<
                   readonly name: 'Motion_creatorId_idx_3a77d800';
                   readonly prefix: 'Motion_creatorId_idx';
                   readonly columns: readonly ['creatorId'];
+                  readonly unique: false;
+                },
+                {
+                  readonly name: 'Motion_voteEstimate_idx_d2e8dc62';
+                  readonly prefix: 'Motion_voteEstimate_idx';
+                  readonly columns: readonly ['voteEstimate'];
                   readonly unique: false;
                 },
               ];

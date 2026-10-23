@@ -25,6 +25,8 @@ model Motion {
   votes        Vote[]
 
   createdAt    TimestamptzString @default(now())
+
+  @@index([voteEstimate])
 }
 
 model Vote {
@@ -42,4 +44,5 @@ model Vote {
 
   @@unique([motionId, voterId])
   @@index([motionId])
+  @@index([voterId])
 }

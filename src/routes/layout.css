@@ -10,7 +10,7 @@
 	}
 
 	body {
-		@apply bg-light text-dark;
+		@apply bg-light-less text-dark;
 		font-family: "Inter Variable", monospace;
 	}
 
